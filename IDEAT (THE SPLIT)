@@ -1,0 +1,31 @@
+#include <stdio.h>
+
+void splitBill(int *totalAmount, int numPeople, int currentPerson) {
+    if (currentPerson > numPeople) {
+        return;  
+    }
+    int payment;
+    printf("Enter amount paid by person %d: ", currentPerson);
+    scanf("%d", &payment);
+
+    *totalAmount += payment;  
+
+    splitBill(totalAmount, numPeople, currentPerson + 1);
+}
+
+int main() {
+    int numPeople, totalAmount = 0;
+
+    printf("Enter the number of people who scanned the QR code: ");
+    scanf("%d", &numPeople);
+    splitBill(&totalAmount, numPeople, 1);
+    printf("Total amount paid by all %d people: %d\n", numPeople, totalAmount);
+
+    if (numPeople > 0) {
+        printf("Average amount paid per person: %.2f\n", (float)totalAmount / numPeople);
+    } else {
+        printf("No people entered, so no calculation can be done.\n");
+    }
+
+    return 0;
+}
